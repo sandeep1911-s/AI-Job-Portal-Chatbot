@@ -76,12 +76,12 @@ async function initDatabase() {
     }
 
     try {
-        await activeSequelize.sync();
+        await activeSequelize.sync({ alter: true });
         console.log(`✅ Database synced successfully (${activeSequelize.getDialect()})`);
     } catch (syncErr) {
         console.error('❌ Sync error on active DB, falling back to SQLite:', syncErr.message);
         activeSequelize = sqliteInstance;
-        await activeSequelize.sync();
+        await activeSequelize.sync({ alter: true });
         console.log('✅ SQLite fallback database synced successfully');
     }
 
